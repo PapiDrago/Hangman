@@ -14,7 +14,7 @@ import java.net.Socket;
 
 /**
  *
- * @author Claudio Cusano <claudio.cusano@unipv.it>
+ * @author Claudio Guarrasi
  */
 public class HangmanServer {
 
