@@ -52,6 +52,9 @@ public class HangmanServer {
 			 * due endpoint.
 			 * Ciascun endpoint è caratterizzato da un un indirizzo IP e da un 
 			 * numero di porta.
+			 * NB quando un client contatta il server lo fa dal suo endpoint.
+			 * Le coordinate di quest'ultimo sono note al server quando si
+			 * stabilisce il contatto.
 			 */
 			BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter outputStream = new PrintWriter(socket.getOutputStream(), true);
@@ -75,11 +78,15 @@ public class HangmanServer {
 			 * sarà completamente svuotato; mi assicuro che tutto ciò che c'e' nello
 			 * stream venga scritto.
 			 */
+			outputStream.println("Connessione stabilita!");
 			String message;
-			while(inputStream.readLine() != null) {
-				message = inputStream.readLine();
-				outputStream.println(message);
+			 while((message = inputStream.readLine()) != null) {
+				outputStream.println("Echo: " + message);
+				if(message.equalsIgnoreCase("chiudi")) {
+					break;
+				}
 			}
+				
 		} catch (IOException e) {
 			System.out.println("Non è possibile usare il numero d'ordine "
 					+ port + ".");
