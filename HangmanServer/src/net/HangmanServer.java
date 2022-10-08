@@ -12,13 +12,16 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import hangman.Hangman;
+import hangman.Player;
+
 /**
  *
  * @author Claudio Guarrasi
  */
 public class HangmanServer {
 
-    
+
 	public static void main(String[] args) {
 		int port = 770;
 		/*
@@ -79,20 +82,22 @@ public class HangmanServer {
 			 * stream venga scritto.
 			 */
 			outputStream.println("Connessione stabilita!");
-			String message;
-			 while((message = inputStream.readLine()) != null) {
-				outputStream.println("Echo: " + message);
+			Protocollo p = new Protocollo();
+
+			String message = null;
+			while((message = inputStream.readLine()) != null) {
+				outputStream.println(p.processaInput(message));
 				if(message.equalsIgnoreCase("chiudi")) {
 					break;
 				}
 			}
-				
+
 		} catch (IOException e) {
 			System.out.println("Non è possibile usare il numero d'ordine "
 					+ port + ".");
 			e.printStackTrace();
 		}
-		
+
 	}
-    
+
 }
