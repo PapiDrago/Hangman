@@ -93,7 +93,7 @@ public class HangmanServer {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Non è possibile usare il numero d'ordine "
+			System.out.println("Non e' possibile usare il numero d'ordine "
 					+ port + ".");
 			e.printStackTrace();
 		}
