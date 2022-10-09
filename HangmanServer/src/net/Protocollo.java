@@ -18,13 +18,14 @@ public class Protocollo {
 		if(input.equalsIgnoreCase("gioca") && this.gioco == null) {
 			this.gioco = new Game(diz.pickWord());
 			output = "Hai scelto di giocare all'impiccato!";
-			System.out.println(gioco.getSecretWord());
-			return output + "\n" + this.gioco.getKnownLetters();
+			//System.out.println(gioco.getSecretWord());
+			return output + "\r\n\n           " +
+			this.gioco.getKnownLetters();
 		} else if (this.gioco == null) {
 			output = input;
 			return "Echo " + output;
 		} else if ((gioco != null) && (this.gioco.getResult() == GameResult.OPEN)) {
-			if(Character.isLetter(input.charAt(0))) {
+			if(isInputOk(input)) {
 				this.gioco.makeAttempt(input.charAt(0));
 				if(gioco.getResult() == GameResult.SOLVED) {
 					output = this.gioco.getKnownLetters() + "\n" +
@@ -39,9 +40,13 @@ public class Protocollo {
 					gioco = null;
 					return output;	
 				}
-				return "\n" + this.gioco.getKnownLetters() + "\r\n" +
-												gameRepresentation();
+				return "\r\n\n           " + this.gioco.getKnownLetters() + "\r\n" +
+				gameRepresentation();
 			}
+			output = "\nDevi scrivere solamente un carattere uguale a "
+					+ "una lettera dell'alfabeto!\n" +
+					this.gioco.getKnownLetters() + "\r\n" +
+					gameRepresentation();
 		}
 		return output;
 	}
@@ -52,7 +57,7 @@ public class Protocollo {
 		String s = "___________\r\n/         |\r\n|         ";
 		s += (a == 0 ? "" : "O\r\n");
 		s += "|       " + (a == 0 ? "  \r\n" : (a < 5 ? "  +\r\n" :
-							(a == 5 ? "--+\r\n" : "--+--\r\n")));
+			(a == 5 ? "--+\r\n" : "--+--\r\n")));
 		s += "|         " + (a < 2 ? "\r\n" : "|\r\n");
 		s += "|        " + (a < 3 ? " \r\n" : (a > 3 ? "/ \\\r\n" : "/\r\n" ));
 		s += "|";
@@ -62,4 +67,11 @@ public class Protocollo {
 	 * NB il carattere '+' viene aggiunto insieme alla testa, non corrisponde
 	 * a un errore fatto.
 	 */
+	private boolean isInputOk(String input) {
+		if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
+			return true;
+		}
+		return false;
+	}
+
 }

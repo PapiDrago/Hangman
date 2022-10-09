@@ -84,7 +84,7 @@ public class HangmanServer {
 			outputStream.println("Connessione stabilita!");
 			Protocollo p = new Protocollo();
 
-			String message = null;
+			String message = "";
 			while((message = inputStream.readLine()) != null) {
 				outputStream.println(p.processaInput(message));
 				if(message.equalsIgnoreCase("chiudi")) {
