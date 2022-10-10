@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import console.LocalPlayer;
 import hangman.Hangman;
 import hangman.Player;
 
@@ -59,8 +60,8 @@ public class HangmanServer {
 			 * Le coordinate di quest'ultimo sono note al server quando si
 			 * stabilisce il contatto.
 			 */
-			BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter outputStream = new PrintWriter(socket.getOutputStream(), true);
+			//BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			//PrintWriter outputStream = new PrintWriter(socket.getOutputStream(), true);
 			/*
 			 * Siccome il protocollo applicativo sara' semplice poiche' client e server
 			 * si scambieranno caratteri, decido di istanziare gli stream di input
@@ -81,16 +82,20 @@ public class HangmanServer {
 			 * sarà completamente svuotato; mi assicuro che tutto ciò che c'e' nello
 			 * stream venga scritto.
 			 */
-			outputStream.println("Connessione stabilita!");
-			Protocollo p = new Protocollo();
+			//outputStream.println("Connessione stabilita!");
+			//Protocollo p = new Protocollo();
 
-			String message = "";
+			Hangman game = new Hangman();
+			Player player = new RemotePlayer(socket);
+			game.playGame(player);
+
+			/*String message = "";
 			while((message = inputStream.readLine()) != null) {
 				outputStream.println(p.processaInput(message));
 				if(message.equalsIgnoreCase("chiudi")) {
 					break;
 				}
-			}
+			}*/
 
 		} catch (IOException e) {
 			System.out.println("Non e' possibile usare il numero d'ordine "

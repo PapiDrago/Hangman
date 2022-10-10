@@ -50,7 +50,7 @@ public class LocalPlayer extends Player {
         }
     }
 
-    private String gameRepresentation(Game game) {
+    protected String gameRepresentation(Game game) {
         int a = game.countFailedAttempts();
         
         String s = "   ___________\n  /       |   \n  |       ";
@@ -64,7 +64,7 @@ public class LocalPlayer extends Player {
         return s;
     }
     
-    private void printBanner(String message) {
+    protected void printBanner(String message) {
         System.out.println("");
         for (int i = 0; i < 80; i++)
             System.out.print("*");
