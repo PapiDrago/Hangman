@@ -20,7 +20,10 @@ public class RemotePlayer extends Player {
 		this.socket = socket;
 		this.inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		this.outputStream = new PrintWriter(socket.getOutputStream(), true);
-		this.outputStream.println("Connessione stabilita!");
+		this.outputStream.println("\nCiao, sono il boia.\nSei stato"
+				+ " condannato all'impiccagione!\n"
+				+ "Ti salverai solamente se indovinerai la parola!\n"
+				+ "Scrivi il carattere alfabetico che pensi sia contenuto nella parola segreta.");
 	}
 
 	@Override
