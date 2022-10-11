@@ -27,7 +27,6 @@ public class RemoteClient extends Thread {
 		try {
 			String inputMsg = "";
 			while((inputMsg = inputStream.readLine()) != null) {
-				//System.out.println("sono nel while");
 				System.out.println(inputMsg);
 			}
 		} catch (IOException e) {
@@ -36,11 +35,14 @@ public class RemoteClient extends Thread {
 		}
 	}
 	
-	public void scrivi() throws IOException {
+	public void scrivi() {
 		String outputMsg = "";
 		while(true) {
-			//System.out.println("sono nel while");
-			outputMsg = console.readLine();
+			try {
+				outputMsg = console.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			outputStream.println(outputMsg);
 		}
 	}
