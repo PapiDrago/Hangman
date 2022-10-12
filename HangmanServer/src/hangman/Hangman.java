@@ -13,27 +13,30 @@ package hangman;
  * @author Claudio Cusano <claudio.cusano@unipv.it>
  */
 public class Hangman {
-    Dictionary dict;
-    
-    /**
-     * Initialize the object.
-     */
-    public Hangman() {
-        dict = new Dictionary();
-    }
-    
-    /**
-     * Play a round of the game.
-     * 
-     * @param player the participant to the game
-     */
-    public void playGame(Player player) {
-        Game game = new Game(dict.pickWord());
-        game.addObserver(player);
-        game.notifyObservers();
-        while (game.getResult() == GameResult.OPEN) {
-            char c = player.chooseLetter(game);
-            game.makeAttempt(c);
-        }
-    }
+	Dictionary dict;
+
+	/**
+	 * Initialize the object.
+	 */
+	public Hangman() {
+		dict = new Dictionary();
+	}
+
+	/**
+	 * Play a round of the game.
+	 * 
+	 * @param player the participant to the game
+	 */
+	public void playGame(Player player) {
+		do {
+			Game game = new Game(dict.pickWord());
+			//System.out.println(game.getSecretWord());
+			game.addObserver(player);
+			game.notifyObservers();
+			while (game.getResult() == GameResult.OPEN) {
+				char c = player.chooseLetter(game);
+				game.makeAttempt(c);
+			}
+		} while(player.keepPlaying());
+	}
 }

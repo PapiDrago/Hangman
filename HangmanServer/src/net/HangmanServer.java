@@ -35,7 +35,7 @@ public class HangmanServer {
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
 			/*
-			 * Ho instanziato un socket di tipo serverSocket. Questo
+			 * Ho istanziato un socket di tipo serverSocket. Questo
 			 * oggetto astrae il concetto del socket, sempre in ascolto,
 			 * di un server. Infatti tipicamente usando il protocollo
 			 * a livello trasporto TCP, il processo client contatta

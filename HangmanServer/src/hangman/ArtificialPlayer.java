@@ -35,4 +35,9 @@ public class ArtificialPlayer extends Player {
     public void update(Game r) {
         log.info(r.getKnownLetters() +  "   [" + r.getResult() + "]");
     }
+
+	@Override
+	public boolean keepPlaying() {
+		return false;
+	}
 }

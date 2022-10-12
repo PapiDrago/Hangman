@@ -38,7 +38,7 @@ public class HangmanClient extends Thread {
 		 * forwarding tramite le impostazioni del router in cui ho
 		 * specificato:
 		 * -l'ip locale del server;
-		 * -la porta di reinidirizzamento del router;
+		 * -la porta di reindirizzamento del router;
 		 * -la porta di destinazione, ovvero quella associata al processo
 		 * in esecuzione sul processo server.
 		 */

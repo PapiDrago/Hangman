@@ -74,7 +74,7 @@ public class RemotePlayer extends Player {
 	private void printBanner(String message) {
 		outputStream.println("");
 		for (int i = 0; i < 80; i++)
-			System.out.print("*");
+			outputStream.print("*");
 		outputStream.println("\n***  " + message);
 		for (int i = 0; i < 80; i++)
 			outputStream.print("*");
@@ -93,6 +93,19 @@ public class RemotePlayer extends Player {
 		s += "  |      " + (a < 3 ? "\n" : (a == 3 ? "/\n" : "/ \\\n"));
 		s += "  |\n================\n";
 		return s;
+	}
+
+	@Override
+	public boolean keepPlaying() {
+		outputStream.println("Se vuoi continuare a giocare scrivi y.");
+		try {
+			if(inputStream.readLine().equalsIgnoreCase("y")) {
+				return true;
+			}
+		} catch (IOException e) {
+			return false;
+		}
+		return false;
 	}
 
 }
