@@ -27,7 +27,7 @@ public class RemoteClient extends Thread {
 		try {
 			String inputMsg = "";
 			while((inputMsg = inputStream.readLine()) != null) {
-				Thread.sleep(100000);
+				Thread.sleep(100);
 				System.out.println(inputMsg);
 			}
 		} catch (IOException e) {
