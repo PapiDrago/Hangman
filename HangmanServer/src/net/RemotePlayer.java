@@ -23,10 +23,29 @@ public class RemotePlayer extends Player {
 				+ "Ti salverai solamente se indovinerai la parola!\n"
 				+ "Scrivi il carattere alfabetico che pensi sia contenuto nella parola segreta.");
 	}
-
+	/*
+	 * Siccome il protocollo applicativo sara' semplice poiche' client e server
+	 * si scambieranno caratteri, decido di istanziare gli stream di input
+	 * e di output che si usano tipicamente per gestire semplici caratteri.
+	 * NB il costruttore di BufferedReader che richiede che sia passato come
+	 * argomento un oggetto Reader. Cio' si fa perche' se usassimo solo
+	 * un oggetto di tipo InputStreamReader, ogni volta che ne usiamo il metodo
+	 * read() (o altri) viene richiesta una sequenza di caratteri direttamente
+	 * dal disco rigido: cio' e' un'operazione lunga e se faccio tante letture
+	 * aumento la lungaggine. Dunque e' bene avvolgere questi tipi di Reader
+	 * in un BufferedReader che memorizza una sequenza di byte nella RAM,
+	 * in questo modo quando usiamo il metodo Read andiamo a cercare il byte
+	 * nel buffer che e' un'operazione piu' veloce. Ovviamente quando
+	 * il buffer si svuota dovremo obbligatoriamente andare in memoria lenta.
+	 * 
+	 * NB il true nel costruttore del PrintWriter imposta il flush in modalita'
+	 * automatica: es. ogni volta che invoco println il buffer in output
+	 * sarà completamente svuotato; mi assicuro che tutto ciò che c'e' nello
+	 * stream venga scritto.
+	 */
 	@Override
 	public char chooseLetter(Game game) {
-		String line = null;
+		String line = "";
 		while (true) {
 			try {
 				outputStream.println("Inserisci una lettera");
@@ -36,7 +55,6 @@ public class RemotePlayer extends Player {
 			}
 			if (line.equalsIgnoreCase("chiudi")) {
 				outputStream.println("ciao");
-				System.out.println("ciao");
 				System.exit(0);
 			}
 			line = line.trim();
@@ -74,7 +92,7 @@ public class RemotePlayer extends Player {
 	private void printBanner(String message) {
 		outputStream.println("");
 		for (int i = 0; i < 80; i++)
-			System.out.print("*");
+			outputStream.print("*");
 		outputStream.println("\n***  " + message);
 		for (int i = 0; i < 80; i++)
 			outputStream.print("*");
@@ -93,6 +111,26 @@ public class RemotePlayer extends Player {
 		s += "  |      " + (a < 3 ? "\n" : (a == 3 ? "/\n" : "/ \\\n"));
 		s += "  |\n================\n";
 		return s;
+	}
+
+	@Override
+	public boolean keepPlaying() {
+		outputStream.println("Se vuoi continuare a giocare scrivi y.");
+		try {
+			if(inputStream.readLine().equalsIgnoreCase("y")) {
+				return true;
+			}
+			chiusuraConnessione();
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	private void chiusuraConnessione() throws IOException {
+		outputStream.println("Grazie per ver giocato!");
+		inputStream.close();
+		outputStream.close();
+		this.socket.close();
 	}
 
 }

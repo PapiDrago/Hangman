@@ -97,4 +97,17 @@ public class LocalPlayer extends Player {
             }
         }
     }
+    
+    @Override
+	public boolean keepPlaying() {
+		System.out.println("Se vuoi continuare a giocare scrivi y.");
+		try {
+			if(console.readLine().equalsIgnoreCase("y")) {
+				return true;
+			}
+		} catch (IOException e) {
+			return false;
+		}
+		return false;
+	}
 }
