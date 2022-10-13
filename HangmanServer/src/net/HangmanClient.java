@@ -14,7 +14,9 @@ public class HangmanClient extends Thread {
 			Socket clientSocket = new Socket(indirizzoIp, port);
 			RemoteClient client = new RemoteClient(clientSocket);
 			client.start();
-			client.scrivi();
+			client.ascolta();
+			//System.out.println("chiudi");
+			System.exit(0);
 		} catch (UnknownHostException e) {
 			System.out.println("L'indirizzo ip " + indirizzoIp + " risulta "
 					+ "irragiungibile.");
